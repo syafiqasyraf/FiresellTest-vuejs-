@@ -1,32 +1,37 @@
 <template>
     <div class="container" :class="{'loading': loading}">
         <div class="row">
-            <div class="col-lg-3">
-                <h1 class="my-4">Shop Catalog</h1>
-                <div class="list-group">
-                    <a class="list-group-item" v-for="category in categories">
-                        {{ category.name }}
-                    </a>
-                </div>
+            <div class="col-lg-5">
+                <h1 class="my-4">ToDo List</h1>
+                <p>Showing all Todo list retrieved from Restful Api.</p>
+            </div> 
 
-            </div>
-            <div class="col-lg-9">
-                <div class="row mt-4">
-                    <div class="col-lg-4 col-md-6 mb-4" v-for="product in products">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">{{ product.name }}</a>
-                                </h4>
-                                <h5>$ {{ product.price }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
+            <div class="table-responsive col-lg-10">
+                <table class="table table-striped table-sm table-hover" >
+                    <thead>
+                        <tr>
+                        <th>ToDo ID</th>
+                        <th>ToDos</th>
+                        <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="todo in todos">
+                        <tr>
+                        <td><p>{{ todo.id }}</p></td>
+                        <td>
+                            <p>{{ todo.message }}</p>
+                        </td>
+                        <td>
+                            <div v-if="todo.is_complete === 1">
+                            <p class="text-success">Completed</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                            <div v-else>
+                            <p class="text-danger">Incomplete</p>
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -36,38 +41,39 @@
     export default {
         data: function () {
             return {
-                categories: [],
-                products: [],
+                todos: [],
+                // products: [],
                 loading: true
             }
         },
 
         mounted() {
-            this.loadCategories();
-            this.loadProducts();
+            this.loadTodos();
+            // this.loadProducts();
         },
 
         methods: {
-            loadCategories: function () {
-                axios.get('/api/categories')
+            loadTodos: function () {
+                axios.get('/api/todos')
                     .then((response) => {
-                        this.categories = response.data.data;
+                        this.todos = response.data.todos;
+                        this.loading = false;
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
 
-            loadProducts: function () {
-                axios.get('/api/products')
-                    .then((response) => {
-                        this.products = response.data.data;
-                        this.loading = false;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
+            // loadProducts: function () {
+            //     axios.get('/api/products')
+            //         .then((response) => {
+            //             this.products = response.data.data;
+            //             this.loading = false;
+            //         })
+            //         .catch(function (error) {
+            //             console.log(error);
+            //         });
+            // }
         }
     }
 </script>

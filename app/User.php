@@ -16,8 +16,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role',
     ];
+    public function todos()
+    {
+        return $this->hasMany(Todos::class);
+    }
 
     /**
      * The attributes that should be hidden for arrays.

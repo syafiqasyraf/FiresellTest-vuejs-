@@ -1942,38 +1942,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categories: [],
-      products: [],
+      todos: [],
+      // products: [],
       loading: true
     };
   },
   mounted: function mounted() {
-    this.loadCategories();
-    this.loadProducts();
+    this.loadTodos(); // this.loadProducts();
   },
   methods: {
-    loadCategories: function loadCategories() {
+    loadTodos: function loadTodos() {
       var _this = this;
 
-      axios.get('/api/categories').then(function (response) {
-        _this.categories = response.data.data;
+      axios.get('/api/todos').then(function (response) {
+        _this.todos = response.data.todos;
+        _this.loading = false;
       })["catch"](function (error) {
         console.log(error);
       });
-    },
-    loadProducts: function loadProducts() {
-      var _this2 = this;
+    } // loadProducts: function () {
+    //     axios.get('/api/products')
+    //         .then((response) => {
+    //             this.products = response.data.data;
+    //             this.loading = false;
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
 
-      axios.get('/api/products').then(function (response) {
-        _this2.products = response.data.data;
-        _this2.loading = false;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
   }
 });
 
@@ -19583,51 +19588,40 @@ var render = function() {
     { staticClass: "container", class: { loading: _vm.loading } },
     [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-3" }, [
-          _c("h1", { staticClass: "my-4" }, [_vm._v("Shop Catalog")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "list-group" },
-            _vm._l(_vm.categories, function(category) {
-              return _c("a", { staticClass: "list-group-item" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(category.name) +
-                    "\n                "
-                )
-              ])
-            }),
-            0
-          )
-        ]),
+        _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "col-lg-9" }, [
+        _c("div", { staticClass: "table-responsive col-lg-10" }, [
           _c(
-            "div",
-            { staticClass: "row mt-4" },
-            _vm._l(_vm.products, function(product) {
-              return _c("div", { staticClass: "col-lg-4 col-md-6 mb-4" }, [
-                _c("div", { staticClass: "card h-100" }, [
-                  _vm._m(0, true),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h4", { staticClass: "card-title" }, [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._v(_vm._s(product.name))
-                      ])
-                    ]),
+            "table",
+            { staticClass: "table table-striped table-sm table-hover" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.todos, function(todo) {
+                return _c("tbody", [
+                  _c("tr", [
+                    _c("td", [_c("p", [_vm._v(_vm._s(todo.id))])]),
                     _vm._v(" "),
-                    _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
+                    _c("td", [_c("p", [_vm._v(_vm._s(todo.message))])]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(_vm._s(product.description))
+                    _c("td", [
+                      todo.is_complete === 1
+                        ? _c("div", [
+                            _c("p", { staticClass: "text-success" }, [
+                              _vm._v("Completed")
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("p", { staticClass: "text-danger" }, [
+                              _vm._v("Incomplete")
+                            ])
+                          ])
                     ])
                   ])
                 ])
-              ])
-            }),
-            0
+              })
+            ],
+            2
           )
         ])
       ])
@@ -19639,11 +19633,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "http://placehold.it/700x400", alt: "" }
-      })
+    return _c("div", { staticClass: "col-lg-5" }, [
+      _c("h1", { staticClass: "my-4" }, [_vm._v("ToDo List")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Showing all Todo list retrieved from Restful Api.")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ToDo ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ToDos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
+      ])
     ])
   }
 ]
@@ -31951,8 +31958,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/project/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/project/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\Laravel-API-Vue-Catalog\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Laravel-API-Vue-Catalog\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
